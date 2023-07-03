@@ -67,19 +67,29 @@ pub struct Rot13Ciphertext{
 
 impl Rot13{
     pub fn new<'a>(plaintext: &'a str) -> Rot13Ciphertext{
-        Rot13Ciphertext { ciphertext: plaintext.to_string() }
+
+        let mut result = String::new();
+
+        for c in plaintext.chars(){
+            let new_char = match c {
+                    'A'..='Z' => (((c as u32 - 'A' as u32 + 13 as u32) % 26) + 'A' as u32) as u8 as char,
+                    'a'..='z' => (((c as u32 - 'a' as u32 + 13 as u32) % 26) + 'a' as u32) as u8 as char,
+                    _ => c,
+            };
+            result.push(new_char);
+        }
+
+        Rot13Ciphertext { ciphertext: result }
     }
 
     pub fn decipher<'a>(ciphertext: &'a str) -> String{
-        //TODO: implement decipher
-        ciphertext.to_string()
+        Caesarcipher::new(ciphertext, 13).to_string()
     }
 }
 
 impl Solve for Rot13Ciphertext{
     fn solve(&self) -> String{
-        //TODO: implement solve
-        self.ciphertext.to_string()
+        Caesarcipher::new(self.ciphertext.as_str(), 13).to_string()
     }
 }
 
