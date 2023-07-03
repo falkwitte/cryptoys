@@ -33,7 +33,7 @@ impl Caesarcipher{
         CaesarCiphertext{ciphertext: result, shift}
     }
 
-    pub fn decipher<'a>(ciphertext: &'a str, shift: u8) -> String{
+    pub fn decrypt<'a>(ciphertext: &'a str, shift: u8) -> String{
         let decrypt_shift = 26 - (shift % 26);
 
         Caesarcipher::new(ciphertext, decrypt_shift).to_string()
@@ -72,8 +72,8 @@ impl Rot13{
 
         for c in plaintext.chars(){
             let new_char = match c {
-                    'A'..='Z' => (((c as u32 - 'A' as u32 + 13 as u32) % 26) + 'A' as u32) as u8 as char,
-                    'a'..='z' => (((c as u32 - 'a' as u32 + 13 as u32) % 26) + 'a' as u32) as u8 as char,
+                    'A'..='Z' => (((c as u32 - 'A' as u32 + 13_u32) % 26) + 'A' as u32) as u8 as char,
+                    'a'..='z' => (((c as u32 - 'a' as u32 + 13_u32) % 26) + 'a' as u32) as u8 as char,
                     _ => c,
             };
             result.push(new_char);
@@ -82,7 +82,7 @@ impl Rot13{
         Rot13Ciphertext { ciphertext: result }
     }
 
-    pub fn decipher<'a>(ciphertext: &'a str) -> String{
+    pub fn decrypt<'a>(ciphertext: &'a str) -> String{
         Caesarcipher::new(ciphertext, 13).to_string()
     }
 }
