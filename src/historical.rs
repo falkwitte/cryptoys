@@ -19,7 +19,7 @@ pub struct CaesarCiphertext{
 
 impl Caesarcipher{
     /// Creates a new Caesarcipher by shifting plaintext by a u32 number
-    pub fn new<'a>(plaintext: &'a str, shift: u8) -> CaesarCiphertext{
+    pub fn new(plaintext: &str, shift: u8) -> CaesarCiphertext{
             let mut result = String::new(); 
 
             for c in plaintext.chars(){
@@ -33,7 +33,7 @@ impl Caesarcipher{
         CaesarCiphertext{ciphertext: result, shift}
     }
 
-    pub fn decrypt<'a>(ciphertext: &'a str, shift: u8) -> String{
+    pub fn decrypt(ciphertext: &str, shift: u8) -> String{
         let decrypt_shift = 26 - (shift % 26);
 
         Caesarcipher::new(ciphertext, decrypt_shift).to_string()
@@ -66,7 +66,7 @@ pub struct Rot13Ciphertext{
 }
 
 impl Rot13{
-    pub fn new<'a>(plaintext: &'a str) -> Rot13Ciphertext{
+    pub fn new(plaintext: &str) -> Rot13Ciphertext{
 
         let mut result = String::new();
 
@@ -82,7 +82,7 @@ impl Rot13{
         Rot13Ciphertext { ciphertext: result }
     }
 
-    pub fn decrypt<'a>(ciphertext: &'a str) -> String{
+    pub fn decrypt(ciphertext: &str) -> String{
         Caesarcipher::new(ciphertext, 13).to_string()
     }
 }
@@ -100,3 +100,29 @@ impl ToString for Rot13Ciphertext{
 }
 
 //-----------------------------------------------------------------------------------
+
+pub struct Playfair{}
+
+pub struct PlayfairCiphertext<'a>{
+    ciphertext: String,
+    key: &'a str
+}
+
+impl Playfair{
+    pub fn new<'a>(plaintext: &'a str, key: &'a str) -> PlayfairCiphertext<'a>{
+        let ciphertext = plaintext.to_string();
+        PlayfairCiphertext { ciphertext, key }
+    }
+}
+
+impl<'a> Solve for PlayfairCiphertext<'a>{
+    fn solve(&self) -> String {
+        self.ciphertext.clone()     
+    }
+}
+
+impl<'a> ToString for PlayfairCiphertext<'a>{
+    fn to_string(&self) -> String {
+        self.ciphertext.clone()
+    }
+}
