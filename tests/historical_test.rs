@@ -1,4 +1,4 @@
-use cryptoys::historical::{Caesarcipher, ToString, Solve};
+use cryptoys::historical::{common_traits::{Solve, ToString}, caesar};
 
 /// encrypted values are taken from https://cryptii.com/pipes/caesar-cipher
 
@@ -6,7 +6,7 @@ use cryptoys::historical::{Caesarcipher, ToString, Solve};
 fn caesarcipher_encryption_test(){
     assert_eq!(
         String::from("Khoor Zruog!"),
-        Caesarcipher::new("Hello World!", 3).to_string()
+        caesar::encrypt("Hello World!", 3).to_string()
     )
 }
 
@@ -14,14 +14,14 @@ fn caesarcipher_encryption_test(){
 fn caesarcipher_decryption_test(){
     assert_eq!(
         String::from("Hello World!"),
-        Caesarcipher::decrypt("Khoor Zruog!", 3)
+        caesar::decrypt("Khoor Zruog!", 3)
     )
 }
 
 #[test]
 fn caesarcipher_solve_test(){
 
-    let encrypted = Caesarcipher::new("Hello World!", 3);
+    let encrypted = caesar::encrypt("Hello World!", 3);
 
     assert_eq!(
         String::from("Hello World!"),
@@ -30,13 +30,13 @@ fn caesarcipher_solve_test(){
 
 }
 
-use cryptoys::historical::{Rot13};
+use cryptoys::historical::rot13;
 
 #[test]
 fn rot13_encryption_test(){
     assert_eq!(
         String::from("Uryyb Jbeyq!"),
-        Rot13::new("Hello World!").to_string()
+        rot13::encrypt("Hello World!").to_string()
     )
 }
 
@@ -44,13 +44,13 @@ fn rot13_encryption_test(){
 fn rot13_decryption_test(){
     assert_eq!(
         String::from("Hello World!"),
-        Rot13::decrypt("Uryyb Jbeyq!")
+        rot13::decrypt("Uryyb Jbeyq!")
     )
 }
 
 #[test]
 fn rot13_solve_test(){
-    let encrypted = Rot13::new("Hello World!");
+    let encrypted = rot13::encrypt("Hello World!");
 
     assert_eq!(
         String::from("Hello World!"),
