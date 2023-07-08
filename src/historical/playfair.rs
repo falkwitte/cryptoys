@@ -61,7 +61,7 @@ fn generate_key_table(key: &str) -> HashMap<char, Pos>{
         if c == 'j' || key.contains(c){
             continue;
         }
-
+        
         pos.insert(c, Pos{ x: x_counter, y: y_counter});
         x_counter += 1;
 
@@ -77,7 +77,6 @@ fn generate_key_table(key: &str) -> HashMap<char, Pos>{
     pos
 }
 
-
 #[cfg(test)]
 mod playfair_tests{
     use super::*;
@@ -87,18 +86,18 @@ mod playfair_tests{
         let mut test_hashmap: HashMap<char, Pos> = HashMap::new();
         
         let five_grid = "keyabcdfghilmnopqrstuvwxz";
-        let mut x_counter = 1_u8;
-        let mut y_counter = 1_u8;
+        let mut x_counter = 0_u8;
+        let mut y_counter = 0_u8;
         for c in five_grid.chars(){
             
             test_hashmap.insert(c, Pos{x: x_counter, y: y_counter});
             x_counter += 1;
             
-            if x_counter > 5{
+            if x_counter > 4{
                 x_counter = 1;
                 y_counter +=1;
                 
-                if y_counter > 5{
+                if y_counter > 4{
                     break
                 }
             }
