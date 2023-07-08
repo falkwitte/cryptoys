@@ -24,8 +24,7 @@ impl<'a> ToString for PlayfairCiphertext<'a>{
     }
 }
 
-//const alphabet: Vec<char> = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']; 
-
+// nothing existed here
 
 struct Pos{
     x: u8,
@@ -40,9 +39,8 @@ fn generate_key_table(key: &str) -> HashMap<char, Pos>{
 
     let alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-    // we count from one, because i am a psychopath
-    let mut x_counter = 1_u8;
-    let mut y_counter = 1_u8;
+    let mut x_counter = 0_u8;
+    let mut y_counter = 0_u8;
 
     for c in key.chars(){
 
@@ -52,38 +50,33 @@ fn generate_key_table(key: &str) -> HashMap<char, Pos>{
 
         pos.insert(c, Pos { x: x_counter, y: y_counter });
         x_counter += 1;
-        if x_counter > 5{
+        if x_counter > 4{
             x_counter = 1;
             y_counter += 1;
         }
     }
     
     for c in alphabet.chars(){
-        if c == 'j'{
+        
+        if c == 'j' || key.contains(c){
             continue;
         }
 
-        for i in key.chars(){
-            if c == i {
-                continue;
-            }
-            pos.insert(c, Pos{ x: x_counter, y: y_counter});
-            x_counter += 1;
+        pos.insert(c, Pos{ x: x_counter, y: y_counter});
+        x_counter += 1;
 
-            if x_counter > 5{
-                x_counter = 1;
-                y_counter += 1;
+        if x_counter > 4{
+            x_counter = 1;
+            y_counter += 1;
 
-                if y_counter > 5 {
-                    return pos
-                }
+            if y_counter > 4 {
+                return pos
             }
         }
     }
     pos
 }
 
-/// 
 
 #[cfg(test)]
 mod playfair_tests{
@@ -93,7 +86,7 @@ mod playfair_tests{
     fn test_generate_key_table() {
         let mut test_hashmap: HashMap<char, Pos> = HashMap::new();
         
-        let five_grid = "keyabcdfghiemnopqrstuvwxz";
+        let five_grid = "keyabcdfghilmnopqrstuvwxz";
         let mut x_counter = 1_u8;
         let mut y_counter = 1_u8;
         for c in five_grid.chars(){
@@ -111,8 +104,9 @@ mod playfair_tests{
             }
         }
         let hashmap = generate_key_table("key");
-        let (key, value) = hashmap.get_key_value(&'k').unwrap();        
-        let (test_key, test_value) = test_hashmap.get_key_value(&'k').unwrap();
-        assert_eq!((test_key, test_value.y), (key, value.y));
+        let (key, value) = hashmap.get_key_value(&'a').unwrap();        
+        let (test_key, test_value) = test_hashmap.get_key_value(&'a').unwrap();
+
+        assert_eq!((test_key, test_value.x), (key, value.x));
     }
 }
