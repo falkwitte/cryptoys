@@ -23,7 +23,13 @@ impl ToString for CaesarCiphertext{
 
 /// Encrypts an &str using the caesar cipher with a shift value.
 /// 
-/// returns a CaesarCiphertext containing the shift value and the encrypted text
+/// # Example
+/// ```
+/// use cryptoys::historical::caesar;
+/// let caesarcipher = caesar::encrypt("Hello World!", 10);
+/// 
+/// assert_eq!("Rovvy Gybvn!".to_string(), caesarcipher.to_string());     
+/// ```
 pub fn encrypt(plaintext: &str, shift: u8) -> CaesarCiphertext{
         let mut result = String::new(); 
 
@@ -39,6 +45,15 @@ pub fn encrypt(plaintext: &str, shift: u8) -> CaesarCiphertext{
 }
 
 /// Decrypts a with the caesar cipher encrypted &str with the original shift value
+/// 
+/// # Example
+/// ```
+/// use cryptoys::historical::caesar;
+/// 
+/// let decrypted_text = caesar::decrypt("Rovvy Gybvn!", 10);
+/// 
+/// assert_eq!("Hello World!".to_string(), decrypted_text);
+/// ```
 pub fn decrypt(ciphertext: &str, shift: u8) -> String{
     let decrypt_shift = 26 - (shift % 26);
 

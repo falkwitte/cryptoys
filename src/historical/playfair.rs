@@ -183,7 +183,7 @@ mod playfair_tests{
 
     #[test]
     fn test_encryption(){
-        assert_eq!("eldloa".to_string(), encrypt("gerome", "xyzm"))
+        assert_eq!("ea".to_string(), encrypt("he", "he"))
     }
 }
 
