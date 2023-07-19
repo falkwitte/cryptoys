@@ -57,3 +57,23 @@ fn rot13_solve_test(){
         encrypted.solve()        
     )
 }
+
+use cryptoys::historical::playfair;
+#[test]
+fn playfair_encryption_test() {
+    let encrypted = playfair::encrypt("hello", "world");
+
+    assert_eq!(
+        String::from("KBWEDR"),
+        encrypted
+    )
+}
+
+fn playfair_decryption_test() {
+    let decrypted = playfair::decrypt("KBWEDR", "world");
+
+    assert_eq!(
+        String::from("hello"),
+        decrypted
+    )
+}

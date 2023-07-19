@@ -95,6 +95,17 @@ fn generate_key_table(key: &str) -> HashMap<char, Pos> {
     pos
 }
 
+
+/// encrypts plaintext with the playfair cipher using a key
+/// 
+/// # Example
+/// ```
+/// use cryptoys::historical::playfair; 
+/// 
+/// fn test_playfair_encryption() {
+///      assert_eq!("KBWEDR".to_string(), playfair::encrypt("hello", "world"))
+/// }
+/// ```
 pub fn encrypt(plaintext: &str, key: &str) -> String {
     let key_table = generate_key_table(key);
     let processed_text = preprocess_text(plaintext);
@@ -162,9 +173,19 @@ pub fn encrypt(plaintext: &str, key: &str) -> String {
         result.push(*encrypted_pair.0);
         result.push(*encrypted_pair.1);
     }
-    result
+    result.to_uppercase()
 }
 
+/// decrypts text that was encrypted with the playfair cipher using a key
+/// 
+/// # Encrypt
+/// ```
+/// use cryptoys::historical::playfair;
+/// 
+/// fn test_playfair_decryption() {
+///     assert_eq!("hello".to_string(), playfair::decrypt("kbwedr", "world"))
+/// }
+/// ```
 pub fn decrypt(encrypted_text: &str, key: &str) -> String {
     let key_table = generate_key_table(key);
     let processed_text = preprocess_text(encrypted_text);
@@ -233,7 +254,7 @@ pub fn decrypt(encrypted_text: &str, key: &str) -> String {
         result.push(*encrypted_pair.1);
     }
 
-    let result = result.chars().filter(|c| *c != 'a').collect();
+    let result: String = result.chars().filter(|c| *c != 'a').collect();
 
     result
 }
@@ -243,7 +264,7 @@ mod playfair_tests {
     use super::*;
 
     #[test]
-    fn test_generate_key_table() {
+    fn test_playfair_generate_key_table() {
         let mut test_hashmap: HashMap<char, Pos> = HashMap::new();
 
         let five_grid = "playfirexmbcdghknoqstuvwz";
@@ -276,17 +297,17 @@ mod playfair_tests {
     }
 
     #[test]
-    fn test_preprocess_text() {
+    fn test_playfair_preprocess_text() {
         assert_eq!("keyila".to_string(), preprocess_text("key!jl"))
     }
 
     #[test]
-    fn test_encryption() {
-        assert_eq!("kbwedr".to_string(), encrypt("hello", "world"))
+    fn test_playfair_encryption() {
+        assert_eq!("KBWEDR".to_string(), encrypt("hello", "world"))
     }
 
     #[test]
-    fn test_decryption() {
+    fn test_playfair_decryption() {
         assert_eq!("hello".to_string(), decrypt("kbwedr", "world"))
     }
 }
