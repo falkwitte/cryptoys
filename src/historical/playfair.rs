@@ -2,8 +2,6 @@ use std::collections::HashMap;
 
 use crate::utils::remove_whitespace_lowercase;
 
-#[warn(missing_docs)]
-
 fn preprocess_text(text: &str) -> String {
     let mut processed_text = String::new();
 
