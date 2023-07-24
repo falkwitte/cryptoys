@@ -1,4 +1,4 @@
-pub fn remove_whitespace_lowercase(text: &str) -> String{
+pub fn text_preprocessor(text: &str) -> String{
     let mut result = String::new();
     for c in text.to_lowercase().chars(){
         if c != ' '{
@@ -16,6 +16,6 @@ mod utils_tests{
 
     #[test]
     fn test_remove_whitespace(){
-        assert_eq!("helloworld!", remove_whitespace_lowercase("Hello World!"));
+        assert_eq!("helloworld!", text_preprocessor("Hello World!"));
     }
 }

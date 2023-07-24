@@ -69,6 +69,7 @@ fn playfair_encryption_test() {
     )
 }
 
+#[test]
 fn playfair_decryption_test() {
     let decrypted = playfair::decrypt("KBWEDR", "world");
 

@@ -31,6 +31,7 @@ impl ToString for Rot13Ciphertext{
 /// ```
 pub fn encrypt(plaintext: &str) -> Rot13Ciphertext{
 
+
     let mut result = String::new();
 
     for c in plaintext.chars(){

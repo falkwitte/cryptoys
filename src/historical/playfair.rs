@@ -1,11 +1,11 @@
 use std::collections::HashMap;
 
-use crate::utils::remove_whitespace_lowercase;
+use crate::utils::text_preprocessor;
 
 fn preprocess_text(text: &str) -> String {
     let mut processed_text = String::new();
 
-    let text = remove_whitespace_lowercase(text);
+    let text = text_preprocessor(text);
     let filtered_text: String = text.chars().filter(|c| c.is_alphabetic()).collect();
 
     let mut chars_iter = filtered_text.chars().peekable();
