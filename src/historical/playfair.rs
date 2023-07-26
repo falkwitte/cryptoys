@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 use crate::utils::text_preprocessor;
 
+// function to preprocess text for the playfair cipher
 fn preprocess_text(text: &str) -> String {
     let mut processed_text = String::new();
 
