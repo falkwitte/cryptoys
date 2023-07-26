@@ -1,5 +1,5 @@
 //! Cryptoys is a cryptographic library
-//! 
+//!
 //! ##### Features:
 //! - historical ciphers
 //! - modern ciphers

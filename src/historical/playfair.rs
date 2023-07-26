@@ -94,13 +94,12 @@ fn generate_key_table(key: &str) -> HashMap<char, Pos> {
     pos
 }
 
-
 /// encrypts plaintext with the playfair cipher using a key
-/// 
+///
 /// # Example
 /// ```
-/// use cryptoys::historical::playfair; 
-/// 
+/// use cryptoys::historical::playfair;
+///
 /// fn test_playfair_encryption() {
 ///      assert_eq!("KBWEDR".to_string(), playfair::encrypt("hello", "world"))
 /// }
@@ -176,11 +175,11 @@ pub fn encrypt(plaintext: &str, key: &str) -> String {
 }
 
 /// decrypts text that was encrypted with the playfair cipher using a key
-/// 
+///
 /// # Encrypt
 /// ```
 /// use cryptoys::historical::playfair;
-/// 
+///
 /// fn test_playfair_decryption() {
 ///     assert_eq!("hello".to_string(), playfair::decrypt("kbwedr", "world"))
 /// }
