@@ -14,6 +14,6 @@
 //!     - md5
 //!     - sha
 
-pub mod historical;
 pub mod hashing;
+pub mod historical;
 mod utils;
