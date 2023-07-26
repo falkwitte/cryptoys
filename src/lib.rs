@@ -15,4 +15,5 @@
 //!     - sha
 
 pub mod historical;
+pub mod hashing;
 mod utils;
