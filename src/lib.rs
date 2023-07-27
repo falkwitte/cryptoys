@@ -10,13 +10,11 @@
 //!     - playfair
 //!     - rot13
 //!     - caesar
+//! - key encryption
 //!     - otp
-//! - hashing function(s)
-//!     - md5
-//!     - sha
 
 pub mod historical;
-pub mod keys;
+pub mod key;
 mod utils;
 
 /// Solves a Ciphtertext
