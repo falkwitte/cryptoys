@@ -10,10 +10,16 @@
 //!     - playfair
 //!     - rot13
 //!     - caesar
+//!     - otp
 //! - hashing function(s)
 //!     - md5
 //!     - sha
 
-pub mod hashing;
 pub mod historical;
+pub mod keys;
 mod utils;
+
+/// Solves a Ciphtertext
+pub trait Solve {
+    fn solve(&self) -> String;
+}

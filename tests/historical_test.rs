@@ -1,7 +1,5 @@
-use cryptoys::historical::{
-    caesar,
-    common_traits::{Solve, ToString},
-};
+use cryptoys::historical::caesar;
+use cryptoys::Solve;
 
 /// encrypted values are taken from https://cryptii.com/pipes/caesar-cipher
 

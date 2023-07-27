@@ -1,4 +1,4 @@
-use crate::historical::common_traits::Solve;
+use crate::Solve;
 
 pub struct CaesarCiphertext {
     ciphertext: String,

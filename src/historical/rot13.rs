@@ -1,5 +1,5 @@
 use crate::historical::caesar;
-use crate::historical::common_traits::Solve;
+use crate::Solve;
 
 pub struct Rot13Ciphertext {
     ciphertext: String,
