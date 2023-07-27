@@ -1,3 +1,4 @@
+//! rot13
 use crate::historical::caesar;
 use crate::Solve;
 

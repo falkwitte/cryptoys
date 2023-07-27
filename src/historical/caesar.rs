@@ -1,3 +1,4 @@
+//! Caesar cipher
 use crate::Solve;
 
 pub struct CaesarCiphertext {

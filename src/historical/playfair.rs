@@ -1,3 +1,5 @@
+//! playfair cipher
+
 use std::collections::HashMap;
 
 use crate::utils::text_preprocessor;
