@@ -1,3 +1,1 @@
-pub struct AffineCiphtertext{
-    
-}
+pub struct AffineCiphtertext {}

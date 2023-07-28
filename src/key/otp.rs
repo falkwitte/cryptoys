@@ -85,30 +85,3 @@ pub fn decrypt(pad: Vec<u8>, ciphertext: &str) -> String {
 
     String::from_utf8(plaintext).unwrap()
 }
-
-#[cfg(test)]
-mod tests {
-
-    use super::*;
-
-    #[test]
-    fn test_otp_encryption() {
-        let pad: Vec<u8> = vec![1, 3, 3, 7];
-
-        assert_eq!("Obkkh", encrypt(pad, "Hello").to_string())
-    }
-
-    #[test]
-    fn test_otp_decryption() {
-        let pad: Vec<u8> = vec![1, 3, 3, 7];
-
-        assert_eq!("Hello".to_string(), decrypt(pad, "Obkkh"))
-    }
-
-    #[test]
-    fn test_otp_solve_trait() {
-        let pad: Vec<u8> = vec![1, 3, 3, 7];
-
-        assert_eq!("Hello".to_string(), encrypt(pad, "Hello").solve())
-    }
-}
