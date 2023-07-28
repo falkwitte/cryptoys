@@ -1,4 +1,9 @@
 //! one-time pad
+//! #### NOT ACCURATE
+//! This is not a correct one-time pad scheme, as the key size in a one-time pad scheme has to be the same size as the message, 
+//! in this one-time pad scheme the key can be of any size, regardless of the message size.
+//! <br>
+//! An accurate version is in development.
 
 use crate::Solve;
 
