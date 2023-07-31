@@ -8,6 +8,7 @@
 use crate::utils::{find_key_for_value, text_preprocessor};
 use crate::Solve;
 use std::collections::HashMap;
+use modinverse::modinverse;
 
 pub struct AffineCiphertext {
     ciphertext: String,
@@ -63,9 +64,9 @@ pub fn encrypt(a: i32, b: i32, plaintext: &str) -> AffineCiphertext {
     AffineCiphertext { ciphertext, a, b }
 }
 
-
 pub fn decrypt(a: i32, b: i32, ciphertext: &str) -> String {
     let ciphertext = text_preprocessor(ciphertext);
+    let a_modinverse = modinverse(a, 26).unwrap();
 
     // map every letter of the alphabet to a number
     let mut alphabet: HashMap<char, i32> = HashMap::new();
@@ -79,12 +80,14 @@ pub fn decrypt(a: i32, b: i32, ciphertext: &str) -> String {
         .chars()
         .map(|pc| *(alphabet.get(&pc).unwrap()))
         .collect();
+    println!("{:?}", text_values);
 
     // apply encryption function to values from plaintext
     let text_values: Vec<i32> = text_values
         .iter()
-        .map(|value| ((value - b) % 26))
+        .map(|value| ((a_modinverse*(value - b)) % 26).abs())
         .collect();
+    println!("{:?}", modinverse(a, 26).unwrap());
     println!("{:?}", text_values);
 
     // get chars corresponding to new text values

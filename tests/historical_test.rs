@@ -73,6 +73,6 @@ fn affine_encryption_test() {
 
 #[test]
 fn affine_decryption_test() {
-    let decryption = affine::decrypt(21, 8, "abcdefghijklmnopqrstuvwxyz");
+    let decryption = affine::decrypt(5, 8, "IHHWVCSWFRCP");
     assert_eq!("AFFINECIPHER", decryption);
 }
