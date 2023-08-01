@@ -7,7 +7,7 @@ or hashing functions like md5.
 The primary goal of this crate is not to make a fully functioning, save and secure cryptography library (others have done this already),
 but to provide fun toys to play around with.
 
-##### Features:
+## Features:
 - historical ciphers
     - playfair
     - rot13
