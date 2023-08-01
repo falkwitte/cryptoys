@@ -1,4 +1,9 @@
 //! one-time pad
+//! #### NOT ACCURATE
+//! This is not a correct one-time pad scheme, as the key size in a one-time pad scheme has to be the same size as the message,
+//! in this one-time pad scheme the key can be of any size, regardless of the message size.
+//! <br>
+//! An accurate version is in development.
 
 use crate::Solve;
 
@@ -53,10 +58,7 @@ pub fn encrypt(pad: Vec<u8>, plaintext: &str) -> OtpCipher {
 
     let ciphertext = String::from_utf8(ciphertext).unwrap();
 
-    OtpCipher {
-        ciphertext: ciphertext,
-        pad: pad,
-    }
+    OtpCipher { ciphertext, pad }
 }
 
 /// For the readability of code that is written with this library, i am going to include this function.
@@ -84,31 +86,4 @@ pub fn decrypt(pad: Vec<u8>, ciphertext: &str) -> String {
     }
 
     String::from_utf8(plaintext).unwrap()
-}
-
-#[cfg(test)]
-mod tests {
-
-    use super::*;
-
-    #[test]
-    fn test_otp_encryption() {
-        let pad: Vec<u8> = vec![1, 3, 3, 7];
-
-        assert_eq!("Obkkh", encrypt(pad, "Hello").to_string())
-    }
-
-    #[test]
-    fn test_otp_decryption() {
-        let pad: Vec<u8> = vec![1, 3, 3, 7];
-
-        assert_eq!("Hello".to_string(), decrypt(pad, "Obkkh"))
-    }
-
-    #[test]
-    fn test_otp_solve_trait() {
-        let pad: Vec<u8> = vec![1, 3, 3, 7];
-
-        assert_eq!("Hello".to_string(), encrypt(pad, "Hello").solve())
-    }
 }

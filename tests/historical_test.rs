@@ -62,3 +62,23 @@ fn playfair_decryption_test() {
 
     assert_eq!(String::from("hello"), decrypted)
 }
+
+use cryptoys::historical::affine;
+
+#[test]
+fn affine_encryption_test() {
+    let encrypted = affine::encrypt(5, 8, "AFFINE cipher");
+    assert_eq!("IHHWVCSWFRCP".to_string(), encrypted.to_string())
+}
+
+#[test]
+fn affine_decryption_test() {
+    let decryption = affine::decrypt(5, 8, "IHHWVCSWFRCP");
+    assert_eq!("AFFINECIPHER", decryption)
+}
+
+#[test]
+fn affine_solve_trait_test() {
+    let solved = affine::encrypt(5, 8, "AFFINE cipher").solve();
+    assert_eq!("AFFINECIPHER", solved)
+}

@@ -300,14 +300,4 @@ mod playfair_tests {
     fn test_playfair_preprocess_text() {
         assert_eq!("keyila".to_string(), preprocess_text("key!jl"))
     }
-
-    #[test]
-    fn test_playfair_encryption() {
-        assert_eq!("KBWEDR".to_string(), encrypt("hello", "world"))
-    }
-
-    #[test]
-    fn test_playfair_decryption() {
-        assert_eq!("hello".to_string(), decrypt("kbwedr", "world"))
-    }
 }
