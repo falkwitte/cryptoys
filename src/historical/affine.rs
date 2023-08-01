@@ -7,8 +7,8 @@
 
 use crate::utils::{find_key_for_value, text_preprocessor};
 use crate::Solve;
-use std::collections::HashMap;
 use modinverse::modinverse;
+use std::collections::HashMap;
 
 pub struct AffineCiphertext {
     ciphertext: String,
@@ -29,8 +29,7 @@ impl ToString for AffineCiphertext {
     }
 }
 
-
-/// Encrypts plaintext using the affine cipher with given numbers a and b 
+/// Encrypts plaintext using the affine cipher with given numbers a and b
 /// <br>
 /// Note that a and b need to be coprime.
 /// # Example
@@ -75,7 +74,6 @@ pub fn encrypt(a: i32, b: i32, plaintext: &str) -> AffineCiphertext {
     AffineCiphertext { ciphertext, a, b }
 }
 
-
 /// Decrypts ciphertext encrypted with the affine cipher
 /// # Example
 /// ```
@@ -91,7 +89,7 @@ pub fn decrypt(a: i32, b: i32, ciphertext: &str) -> String {
     let mut alphabet: HashMap<char, i32> = HashMap::new();
     let alph = "abcdefghijklmnopqrstuvwxyz";
     let mut index = 0;
-    for c in alph.chars(){
+    for c in alph.chars() {
         alphabet.insert(c, index);
         index += 1;
     }
@@ -102,11 +100,10 @@ pub fn decrypt(a: i32, b: i32, ciphertext: &str) -> String {
         .map(|pc| *(alphabet.get(&pc).unwrap()))
         .collect();
 
-
     // apply decryption function to values from ciphertext
     let text_values: Vec<i32> = text_values
         .iter()
-        .map(|value| ((a_modinverse*(value - b)%26+26)%26) )
+        .map(|value| ((a_modinverse * (value - b) % 26 + 26) % 26))
         .collect();
 
     // get chars corresponding to new text values
