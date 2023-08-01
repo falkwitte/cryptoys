@@ -16,6 +16,7 @@ pub struct AffineCiphertext {
     b: i32,
 }
 
+/// solves a AffineCiphertext
 impl Solve for AffineCiphertext {
     fn solve(&self) -> String {
         decrypt(self.a, self.b, &self.ciphertext)
@@ -28,6 +29,16 @@ impl ToString for AffineCiphertext {
     }
 }
 
+
+/// Encrypts plaintext using the affine cipher with given numbers a and b 
+/// <br>
+/// Note that a and b need to be coprime.
+/// # Example
+/// ```
+/// use cryptoys::historical::affine;
+/// let encrypted = affine::encrypt(5, 8, "AFFINE cipher");
+/// assert_eq!("IHHWVCSWFRCP".to_string(), encrypted.to_string())
+/// ```
 pub fn encrypt(a: i32, b: i32, plaintext: &str) -> AffineCiphertext {
     let plaintext = text_preprocessor(plaintext);
 
@@ -64,6 +75,14 @@ pub fn encrypt(a: i32, b: i32, plaintext: &str) -> AffineCiphertext {
     AffineCiphertext { ciphertext, a, b }
 }
 
+
+/// Decrypts ciphertext encrypted with the affine cipher
+/// # Example
+/// ```
+/// use cryptoys::historical::affine;
+/// let decryption = affine::decrypt(5, 8,"IHHWVCSWFRCP");
+/// assert_eq!("AFFINECIPHER", decryption)
+/// ```
 pub fn decrypt(a: i32, b: i32, ciphertext: &str) -> String {
     let ciphertext = text_preprocessor(ciphertext);
     let a_modinverse = modinverse(a, 26).unwrap();
@@ -82,17 +101,13 @@ pub fn decrypt(a: i32, b: i32, ciphertext: &str) -> String {
         .chars()
         .map(|pc| *(alphabet.get(&pc).unwrap()))
         .collect();
-    println!("value for every char in cyphertext: {:?}", text_values);
-    println!("length: {}", text_values.len());
+
 
     // apply decryption function to values from ciphertext
     let text_values: Vec<i32> = text_values
         .iter()
-        .map(|value| ((a_modinverse*(value - 8)%26+26)%26) )
+        .map(|value| ((a_modinverse*(value - b)%26+26)%26) )
         .collect();
-    println!("modinverse of a: {:?}", a_modinverse);
-    println!("decrypted values of ciphertext: {:?}", text_values);
-    println!("length: {}", text_values.len());
 
     // get chars corresponding to new text values
     let new_value: Vec<char> = text_values
