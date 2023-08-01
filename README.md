@@ -12,5 +12,6 @@ but to provide fun toys to play around with.
     - playfair
     - rot13
     - caesar
+    - affine
 - key encryption
     - otp
