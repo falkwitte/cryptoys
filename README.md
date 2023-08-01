@@ -15,3 +15,8 @@ but to provide fun toys to play around with.
     - affine
 - key encryption
     - otp
+
+
+# Contribute
+
+Everyone is free to contribute, just make sure to use `cargo fmt --all` before making a PR
