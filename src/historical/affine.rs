@@ -18,7 +18,7 @@ pub struct AffineCiphertext {
 
 impl Solve for AffineCiphertext {
     fn solve(&self) -> String {
-        self.ciphertext.to_owned()
+        decrypt(self.a, self.b, &self.ciphertext)
     }
 }
 
@@ -71,8 +71,10 @@ pub fn decrypt(a: i32, b: i32, ciphertext: &str) -> String {
     // map every letter of the alphabet to a number
     let mut alphabet: HashMap<char, i32> = HashMap::new();
     let alph = "abcdefghijklmnopqrstuvwxyz";
-    for (index, c) in alph.chars().enumerate() {
-        alphabet.insert(c, index.try_into().unwrap());
+    let mut index = 0;
+    for c in alph.chars(){
+        alphabet.insert(c, index);
+        index += 1;
     }
 
     // find the value(number) for every char in ciphertext
@@ -80,15 +82,17 @@ pub fn decrypt(a: i32, b: i32, ciphertext: &str) -> String {
         .chars()
         .map(|pc| *(alphabet.get(&pc).unwrap()))
         .collect();
-    println!("{:?}", text_values);
+    println!("value for every char in cyphertext: {:?}", text_values);
+    println!("length: {}", text_values.len());
 
-    // apply encryption function to values from plaintext
+    // apply decryption function to values from ciphertext
     let text_values: Vec<i32> = text_values
         .iter()
-        .map(|value| ((a_modinverse*(value - b)) % 26).abs())
+        .map(|value| ((a_modinverse*(value - 8)%26+26)%26) )
         .collect();
-    println!("{:?}", modinverse(a, 26).unwrap());
-    println!("{:?}", text_values);
+    println!("modinverse of a: {:?}", a_modinverse);
+    println!("decrypted values of ciphertext: {:?}", text_values);
+    println!("length: {}", text_values.len());
 
     // get chars corresponding to new text values
     let new_value: Vec<char> = text_values
