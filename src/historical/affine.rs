@@ -35,6 +35,7 @@ impl ToString for AffineCiphertext {
 /// # Example
 /// ```
 /// use cryptoys::historical::affine;
+/// 
 /// let encrypted = affine::encrypt(5, 8, "AFFINE cipher");
 /// assert_eq!("IHHWVCSWFRCP".to_string(), encrypted.to_string())
 /// ```
@@ -43,7 +44,7 @@ pub fn encrypt(a: i32, b: i32, plaintext: &str) -> AffineCiphertext {
 
     // map every letter of the alphabet to a number
     let mut alphabet: HashMap<char, i32> = HashMap::new();
-    let alph = "abcdefghijklmnopqrstuvwxyz ";
+    let alph = "abcdefghijklmnopqrstuvwxyz";
     for (index, c) in alph.chars().enumerate() {
         alphabet.insert(c, index.try_into().unwrap());
     }
@@ -51,6 +52,7 @@ pub fn encrypt(a: i32, b: i32, plaintext: &str) -> AffineCiphertext {
     // find the value(number) for every char in plaintext
     let text_values: Vec<i32> = plaintext
         .chars()
+        .filter(|pc| pc.is_alphabetic() )
         .map(|pc| *(alphabet.get(&pc).unwrap()))
         .collect();
 
@@ -74,6 +76,7 @@ pub fn encrypt(a: i32, b: i32, plaintext: &str) -> AffineCiphertext {
 /// # Example
 /// ```
 /// use cryptoys::historical::affine;
+/// 
 /// let decryption = affine::decrypt(5, 8,"IHHWVCSWFRCP");
 /// assert_eq!("AFFINECIPHER", decryption)
 /// ```
@@ -84,15 +87,14 @@ pub fn decrypt(a: i32, b: i32, ciphertext: &str) -> String {
     // map every letter of the alphabet to a number
     let mut alphabet: HashMap<char, i32> = HashMap::new();
     let alph = "abcdefghijklmnopqrstuvwxyz";
-    let mut index = 0;
-    for c in alph.chars() {
-        alphabet.insert(c, index);
-        index += 1;
+    for (index, c) in alph.chars().enumerate() {
+        alphabet.insert(c, index.try_into().unwrap());
     }
 
     // find the value(number) for every char in ciphertext
     let text_values: Vec<i32> = ciphertext
         .chars()
+        .filter(|pc| pc.is_alphabetic() )
         .map(|pc| *(alphabet.get(&pc).unwrap()))
         .collect();
 
