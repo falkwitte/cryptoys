@@ -54,10 +54,6 @@ pub fn encrypt(a: i32, b: i32, plaintext: &str) -> AffineCiphertext {
         .map(|pc| *(alphabet.get(&pc).unwrap()))
         .collect();
 
-    for i in 0..plaintext.len() {
-        let _math: i32 = (a * i as i32 + b) % plaintext.len() as i32;
-    }
-
     // apply encryption function to values from plaintext
     let text_values: Vec<i32> = text_values
         .iter()
