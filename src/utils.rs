@@ -3,7 +3,7 @@ use std::collections::HashMap;
 pub fn text_preprocessor(text: &str) -> String {
     let mut result = String::new();
     for c in text.to_lowercase().chars() {
-        if c != ' '{
+        if c != ' ' {
             result.push(c);
         }
     }

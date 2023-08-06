@@ -35,7 +35,7 @@ impl ToString for AffineCiphertext {
 /// # Example
 /// ```
 /// use cryptoys::historical::affine;
-/// 
+///
 /// let encrypted = affine::encrypt(5, 8, "AFFINE cipher");
 /// assert_eq!("IHHWVCSWFRCP".to_string(), encrypted.to_string())
 /// ```
@@ -52,7 +52,7 @@ pub fn encrypt(a: i32, b: i32, plaintext: &str) -> AffineCiphertext {
     // find the value(number) for every char in plaintext
     let text_values: Vec<i32> = plaintext
         .chars()
-        .filter(|pc| pc.is_alphabetic() )
+        .filter(|pc| pc.is_alphabetic())
         .map(|pc| *(alphabet.get(&pc).unwrap()))
         .collect();
 
@@ -76,7 +76,7 @@ pub fn encrypt(a: i32, b: i32, plaintext: &str) -> AffineCiphertext {
 /// # Example
 /// ```
 /// use cryptoys::historical::affine;
-/// 
+///
 /// let decryption = affine::decrypt(5, 8,"IHHWVCSWFRCP");
 /// assert_eq!("AFFINECIPHER", decryption)
 /// ```
@@ -94,7 +94,7 @@ pub fn decrypt(a: i32, b: i32, ciphertext: &str) -> String {
     // find the value(number) for every char in ciphertext
     let text_values: Vec<i32> = ciphertext
         .chars()
-        .filter(|pc| pc.is_alphabetic() )
+        .filter(|pc| pc.is_alphabetic())
         .map(|pc| *(alphabet.get(&pc).unwrap()))
         .collect();
 

@@ -86,7 +86,7 @@ fn affine_solve_trait_test() {
 use cryptoys::historical::atbash;
 
 #[test]
-fn atbash_encryption_test(){
+fn atbash_encryption_test() {
     let encrypted = atbash::encrypt("abcdefghijklmnopqrstuvwxyz").to_string();
     assert_eq!("ZYXWVUTSRQPONMLKJIHGFEDCBA", encrypted)
 }
@@ -98,7 +98,7 @@ fn atbash_decryption_test() {
 }
 
 #[test]
-fn atbash_solve_trait_test(){
+fn atbash_solve_trait_test() {
     let solved = atbash::encrypt("Hello World!").solve();
     assert_eq!("HELLOWORLD", solved)
 }
