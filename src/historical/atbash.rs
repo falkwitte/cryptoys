@@ -1,45 +1,35 @@
-//! Affine cipher
-//! ## Warning
-//! Please keep in mind that this function only encrypts and decrypts using the given values.
-//! There are no checks implemented wether these values are correct.
-//! E.g. there is no check to verify that a and m are coprime.
-//! If there is any interrest, then such checks might be implemented in the future.
+//! Atbash cipher
 
 use crate::utils::{find_key_for_value, text_preprocessor};
 use crate::Solve;
-use modinverse::modinverse;
 use std::collections::HashMap;
 
-pub struct AffineCiphertext {
+pub struct AtbashCiphertext {
     ciphertext: String,
-    a: i32,
-    b: i32,
 }
 
-/// solves a AffineCiphertext
-impl Solve for AffineCiphertext {
-    fn solve(&self) -> String {
-        decrypt(self.a, self.b, &self.ciphertext)
-    }
-}
-
-impl ToString for AffineCiphertext {
+impl ToString for AtbashCiphertext {
     fn to_string(&self) -> String {
         self.ciphertext.to_string()
     }
 }
 
-/// Encrypts plaintext using the affine cipher with given numbers a and b
-/// <br>
-/// Note that a and b need to be coprime.
+/// solves a AtbashCiphertext
+impl Solve for AtbashCiphertext {
+    fn solve(&self) -> String {
+        decrypt(&self.ciphertext)
+    }
+}
+
+/// encrypts plaintext with the atbash cipher
 /// # Example
 /// ```
-/// use cryptoys::historical::affine;
+/// use cryptoys::historical::atbash;
 ///
-/// let encrypted = affine::encrypt(5, 8, "AFFINE cipher");
-/// assert_eq!("IHHWVCSWFRCP".to_string(), encrypted.to_string())
+/// let encrypted = atbash::encrypt("abcdefghijklmnopqrstuvwxyz").to_string();
+/// assert_eq!("ZYXWVUTSRQPONMLKJIHGFEDCBA", encrypted)
 /// ```
-pub fn encrypt(a: i32, b: i32, plaintext: &str) -> AffineCiphertext {
+pub fn encrypt(plaintext: &str) -> AtbashCiphertext {
     let plaintext = text_preprocessor(plaintext);
 
     // map every letter of the alphabet to a number
@@ -59,7 +49,7 @@ pub fn encrypt(a: i32, b: i32, plaintext: &str) -> AffineCiphertext {
     // apply encryption function to values from plaintext
     let text_values: Vec<i32> = text_values
         .iter()
-        .map(|value| (a * value + b) % 26)
+        .map(|value| (-(value + 1) % 26 + 26) % 26)
         .collect();
 
     // get chars corresponding to new text values
@@ -69,39 +59,41 @@ pub fn encrypt(a: i32, b: i32, plaintext: &str) -> AffineCiphertext {
         .collect();
 
     let ciphertext = new_value.into_iter().collect::<String>().to_uppercase();
-    AffineCiphertext { ciphertext, a, b }
+
+    AtbashCiphertext { ciphertext }
 }
 
-/// Decrypts ciphertext encrypted with the affine cipher
+/// For the readability of code that is written with this library, i am going to include this function.
+/// But know that it is redundant.
+/// <br>
+/// Decrypts a ciphertext encrypted with atbash
 /// # Example
 /// ```
-/// use cryptoys::historical::affine;
+/// use cryptoys::historical::atbash;
 ///
-/// let decryption = affine::decrypt(5, 8,"IHHWVCSWFRCP");
-/// assert_eq!("AFFINECIPHER", decryption)
+/// let decryption = atbash::decrypt("ZYXWVUTSRQPONMLKJIHGFEDCBA");
+/// assert_eq!("ABCDEFGHIJKLMNOPQRSTUVWXYZ", decryption)
 /// ```
-pub fn decrypt(a: i32, b: i32, ciphertext: &str) -> String {
+pub fn decrypt(ciphertext: &str) -> String {
     let ciphertext = text_preprocessor(ciphertext);
-    let a_modinverse = modinverse(a, 26).unwrap();
 
     // map every letter of the alphabet to a number
     let mut alphabet: HashMap<char, i32> = HashMap::new();
-    let alph = "abcdefghijklmnopqrstuvwxyz";
+    let alph = "abcdefghijklmnopqrstuvwxyz ";
     for (index, c) in alph.chars().enumerate() {
         alphabet.insert(c, index.try_into().unwrap());
     }
 
-    // find the value(number) for every char in ciphertext
+    // find the value(number) for every char in plaintext
     let text_values: Vec<i32> = ciphertext
         .chars()
-        .filter(|pc| pc.is_alphabetic())
         .map(|pc| *(alphabet.get(&pc).unwrap()))
         .collect();
 
-    // apply decryption function to values from ciphertext
+    // apply encryption function to values from plaintext
     let text_values: Vec<i32> = text_values
         .iter()
-        .map(|value| ((a_modinverse * (value - b) % 26 + 26) % 26))
+        .map(|value| (-(value + 1) % 26 + 26) % 26)
         .collect();
 
     // get chars corresponding to new text values

@@ -82,3 +82,23 @@ fn affine_solve_trait_test() {
     let solved = affine::encrypt(5, 8, "AFFINE cipher").solve();
     assert_eq!("AFFINECIPHER", solved)
 }
+
+use cryptoys::historical::atbash;
+
+#[test]
+fn atbash_encryption_test() {
+    let encrypted = atbash::encrypt("abcdefghijklmnopqrstuvwxyz").to_string();
+    assert_eq!("ZYXWVUTSRQPONMLKJIHGFEDCBA", encrypted)
+}
+
+#[test]
+fn atbash_decryption_test() {
+    let decryption = atbash::decrypt("ZYXWVUTSRQPONMLKJIHGFEDCBA");
+    assert_eq!("ABCDEFGHIJKLMNOPQRSTUVWXYZ", decryption)
+}
+
+#[test]
+fn atbash_solve_trait_test() {
+    let solved = atbash::encrypt("Hello World!").solve();
+    assert_eq!("HELLOWORLD", solved)
+}
