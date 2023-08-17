@@ -9,9 +9,7 @@ pub struct CaesarCiphertext {
 /// Solves a CaesarCiphertext
 impl Solve for CaesarCiphertext {
     fn solve(&self) -> String {
-        let decrypt_shift = 26 - (self.shift % 26);
-
-        encrypt(self.ciphertext.as_str(), decrypt_shift).to_string()
+        decrypt(&self.ciphertext, self.shift)
     }
 }
 

@@ -9,17 +9,7 @@ use crate::Solve;
 
 impl Solve for OtpCipher {
     fn solve(&self) -> String {
-        let mut plaintext: Vec<u8> = vec![];
-
-        for byte in self.ciphertext.to_string().into_bytes() {
-            let mut encrypted_bytes = 0;
-            for padding in &self.pad {
-                encrypted_bytes = byte ^ padding;
-            }
-            plaintext.push(encrypted_bytes);
-        }
-
-        String::from_utf8(plaintext).unwrap()
+        decrypt(self.pad.clone(), &self.ciphertext)
     }
 }
 
