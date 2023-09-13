@@ -19,7 +19,7 @@ pub struct AffineCiphertext {
 /// solves a AffineCiphertext
 impl Solve for AffineCiphertext {
     fn solve(&self) -> String {
-        decrypt(self.a, self.b, &self.ciphertext)
+        decrypt(&self.ciphertext, self.a, self.b)
     }
 }
 
@@ -36,10 +36,10 @@ impl ToString for AffineCiphertext {
 /// ```
 /// use cryptoys::historical::affine;
 ///
-/// let encrypted = affine::encrypt(5, 8, "AFFINE cipher");
+/// let encrypted = affine::encrypt("AFFINE cipher", 5, 8); 
 /// assert_eq!("IHHWVCSWFRCP".to_string(), encrypted.to_string())
 /// ```
-pub fn encrypt(a: i32, b: i32, plaintext: &str) -> AffineCiphertext {
+pub fn encrypt(plaintext: &str, a: i32, b: i32) -> AffineCiphertext {
     let plaintext = text_preprocessor(plaintext);
 
     // map every letter of the alphabet to a number
@@ -77,10 +77,10 @@ pub fn encrypt(a: i32, b: i32, plaintext: &str) -> AffineCiphertext {
 /// ```
 /// use cryptoys::historical::affine;
 ///
-/// let decryption = affine::decrypt(5, 8,"IHHWVCSWFRCP");
+/// let decryption = affine::decrypt("IHHWVCSWFRCP", 5, 8);
 /// assert_eq!("AFFINECIPHER", decryption)
 /// ```
-pub fn decrypt(a: i32, b: i32, ciphertext: &str) -> String {
+pub fn decrypt(ciphertext: &str, a: i32, b: i32) -> String {
     let ciphertext = text_preprocessor(ciphertext);
     let a_modinverse = modinverse(a, 26).unwrap();
 
