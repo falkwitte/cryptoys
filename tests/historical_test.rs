@@ -73,13 +73,13 @@ fn affine_encryption_test() {
 
 #[test]
 fn affine_decryption_test() {
-    let decryption = affine::decrypt("IHHWVCSWFRCP", 5, 8); 
+    let decryption = affine::decrypt("IHHWVCSWFRCP", 5, 8);
     assert_eq!("AFFINECIPHER", decryption)
 }
 
 #[test]
 fn affine_solve_trait_test() {
-    let solved = affine::encrypt("AFFINE cipher", 5, 8).solve(); 
+    let solved = affine::encrypt("AFFINE cipher", 5, 8).solve();
     assert_eq!("AFFINECIPHER", solved)
 }
 

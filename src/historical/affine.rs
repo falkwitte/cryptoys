@@ -36,7 +36,7 @@ impl ToString for AffineCiphertext {
 /// ```
 /// use cryptoys::historical::affine;
 ///
-/// let encrypted = affine::encrypt("AFFINE cipher", 5, 8); 
+/// let encrypted = affine::encrypt("AFFINE cipher", 5, 8);
 /// assert_eq!("IHHWVCSWFRCP".to_string(), encrypted.to_string())
 /// ```
 pub fn encrypt(plaintext: &str, a: i32, b: i32) -> AffineCiphertext {
